@@ -30,8 +30,30 @@ const amplifyconfig = ''' {
                         }
                     }
                 },
+                "CognitoUserPool": {
+                    "Default": {
+                        "PoolId": "us-east-1_SMICPbu25",
+                        "AppClientId": "1aredingti8u9qtn8m706b6rae",
+                        "AppClientSecret": "1sj4u94dn51v13996e98rlajorml6up7dsb0iev9rsric15dj98b",
+                        "Region": "us-east-1"
+                    }
+                },
                 "Auth": {
                     "Default": {
+                        "OAuth": {
+                            "WebDomain": "kidztokenzapp77274934-77274934-dev.auth.us-east-1.amazoncognito.com",
+                            "AppClientId": "1aredingti8u9qtn8m706b6rae",
+                            "AppClientSecret": "1sj4u94dn51v13996e98rlajorml6up7dsb0iev9rsric15dj98b",
+                            "SignInRedirectURI": "ktzapp://callback/",
+                            "SignOutRedirectURI": "ktzapp://signout/",
+                            "Scopes": [
+                                "phone",
+                                "email",
+                                "openid",
+                                "profile",
+                                "aws.cognito.signin.user.admin"
+                            ]
+                        },
                         "authenticationFlowType": "USER_SRP_AUTH"
                     }
                 },
