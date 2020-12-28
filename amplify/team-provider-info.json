@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-kidztokenzapp-dev-205417-authRole",
+      "UnauthRoleArn": "arn:aws:iam::279012124572:role/amplify-kidztokenzapp-dev-205417-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::279012124572:role/amplify-kidztokenzapp-dev-205417-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-kidztokenzapp-dev-205417-deployment",
+      "UnauthRoleName": "amplify-kidztokenzapp-dev-205417-unauthRole",
+      "StackName": "amplify-kidztokenzapp-dev-205417",
+      "StackId": "arn:aws:cloudformation:us-east-1:279012124572:stack/amplify-kidztokenzapp-dev-205417/c1ca1ec0-48c8-11eb-b08c-0acaf3694d17",
+      "AmplifyAppId": "d3kblkxw0q5y23"
+    },
+    "categories": {
+      "auth": {
+        "cognito3cd61845": {}
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+    "appName": "kidztokenzapp",
+    "roleName": "pinpointLambdaRole1b0b7773",
+    "cloudformationPolicyName": "cloudformationPolicy1b0b7773",
+    "cloudWatchPolicyName": "cloudWatchPolicy1b0b7773",
+    "pinpointPolicyName": "pinpointPolicy1b0b7773",
+    "authPolicyName": "pinpoint_amplify_1b0b7773",
+    "unauthPolicyName": "pinpoint_amplify_1b0b7773",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}
