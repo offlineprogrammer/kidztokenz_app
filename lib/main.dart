@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:kidztokenz_app/widgets/confirm_signup.dart';
 import 'package:kidztokenz_app/widgets/sign_up.dart';
 
 // Generated in previous step
@@ -46,6 +47,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool _bshowConfirmSignUp = false;
   int _counter = 0;
   bool _amplifyConfigured = false;
   Amplify amplifyInstance = Amplify();
@@ -54,6 +56,12 @@ class _MyHomePageState extends State<MyHomePage> {
   initState() {
     super.initState();
     _configureAmplify();
+  }
+
+  void _showConfirmSignUp() {
+    setState(() {
+      _bshowConfirmSignUp = true;
+    });
   }
 
   void _configureAmplify() async {
@@ -96,7 +104,9 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: SignUpView(),
+                child: _bshowConfirmSignUp
+                    ? ConfirmSignup()
+                    : SignUpView(_showConfirmSignUp),
               ),
             ],
           ),

@@ -2,8 +2,13 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:kidztokenz_app/widgets/confirm_signup.dart';
 
 class SignUpView extends StatefulWidget {
+  final Function showConfirmSignUp;
+
+  SignUpView(this.showConfirmSignUp);
+
   @override
   _SignUpViewState createState() => _SignUpViewState();
 }
@@ -46,7 +51,7 @@ class _SignUpViewState extends State<SignUpView> {
     }
   }
 
-  void _signUp() async {
+  void _signUp(BuildContext context) async {
     try {
       Map<String, dynamic> userAttributes = {
         "email": emailController.text.trim(),
@@ -58,6 +63,15 @@ class _SignUpViewState extends State<SignUpView> {
           options: CognitoSignUpOptions(userAttributes: userAttributes));
 
       print(res.isSignUpComplete);
+      widget.showConfirmSignUp();
+
+      /*     Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) {
+            return ConfirmSignup();
+          },
+        ),
+      ); */
 
       //  setState(() {
       // isSignUpComplete = res.isSignUpComplete;
@@ -72,6 +86,7 @@ class _SignUpViewState extends State<SignUpView> {
     return Card(
       elevation: 2,
       child: Container(
+        // decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
         padding: EdgeInsets.all(5),
         child: Column(
           children: [
@@ -89,7 +104,7 @@ class _SignUpViewState extends State<SignUpView> {
             FlatButton(
               textColor: Colors.black, // Theme.of(context).primaryColor,
               color: Colors.amber,
-              onPressed: _signUp,
+              onPressed: () => _signUp(context),
               child: Text(
                 'Create Account',
                 style: TextStyle(fontWeight: FontWeight.bold),
