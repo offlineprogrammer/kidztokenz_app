@@ -63,7 +63,7 @@ class _SignUpViewState extends State<SignUpView> {
           options: CognitoSignUpOptions(userAttributes: userAttributes));
 
       print(res.isSignUpComplete);
-      widget.showConfirmSignUp();
+      widget.showConfirmSignUp(emailController.text.trim());
 
       /*     Navigator.of(context).push(
         MaterialPageRoute(

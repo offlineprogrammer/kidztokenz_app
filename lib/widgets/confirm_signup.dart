@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 
 class ConfirmSignup extends StatelessWidget {
   final codeController = TextEditingController();
+  final String userName;
+
+  ConfirmSignup(this.userName);
 
   void _confirm_signup(BuildContext context) async {
     try {
       SignUpResult res = await Amplify.Auth.confirmSignUp(
-          username: "mmalaka+1@gmail.com",
+          username: this.userName,
           confirmationCode: codeController.text.trim());
     } on AuthError catch (e) {
       print(e);

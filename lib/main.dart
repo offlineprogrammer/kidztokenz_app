@@ -51,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   bool _amplifyConfigured = false;
   Amplify amplifyInstance = Amplify();
+  String userName;
 
   @override
   initState() {
@@ -58,8 +59,9 @@ class _MyHomePageState extends State<MyHomePage> {
     _configureAmplify();
   }
 
-  void _showConfirmSignUp() {
+  void _showConfirmSignUp(username) {
     setState(() {
+      userName = username;
       _bshowConfirmSignUp = true;
     });
   }
@@ -105,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: _bshowConfirmSignUp
-                    ? ConfirmSignup()
+                    ? ConfirmSignup(userName)
                     : SignUpView(_showConfirmSignUp),
               ),
             ],
