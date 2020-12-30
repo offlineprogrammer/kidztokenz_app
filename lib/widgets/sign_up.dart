@@ -6,10 +6,6 @@ import 'package:kidztokenz_app/widgets/confirm_signup.dart';
 import 'package:kidztokenz_app/widgets/error_view.dart';
 
 class SignUpView extends StatefulWidget {
-  final Function showConfirmSignUp;
-
-  SignUpView(this.showConfirmSignUp);
-
   @override
   _SignUpViewState createState() => _SignUpViewState();
 }
@@ -17,6 +13,7 @@ class SignUpView extends StatefulWidget {
 class _SignUpViewState extends State<SignUpView> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool _isSignedUp = false;
   DateTime signupDate;
 
   String _signUpError = "";
@@ -25,31 +22,6 @@ class _SignUpViewState extends State<SignUpView> {
   @override
   void initState() {
     super.initState();
-  }
-
-  void _signIn() async {
-    // Sign out before in case a user is already signed in
-    // If a user is already signed in - Amplify.Auth.signIn will throw an exception
-    try {
-      await Amplify.Auth.signOut();
-    } on AuthError catch (e) {
-      print(e);
-    }
-
-    try {
-      SignInResult res = await Amplify.Auth.signIn(
-          username: emailController.text.trim(),
-          password: passwordController.text.trim());
-      Navigator.pop(context, true);
-    } on AuthError catch (e) {
-      setState(() {
-        _signUpError = e.cause;
-        _signUpExceptions.clear();
-        e.exceptionList.forEach((el) {
-          _signUpExceptions.add(el.exception);
-        });
-      });
-    }
   }
 
   void _setError(AuthError error) {
@@ -74,7 +46,9 @@ class _SignUpViewState extends State<SignUpView> {
           options: CognitoSignUpOptions(userAttributes: userAttributes));
 
       print(res.isSignUpComplete);
-      widget.showConfirmSignUp(emailController.text.trim());
+      setState(() {
+        _isSignedUp = true;
+      });
     } on AuthError catch (error) {
       _setError(error);
     }
@@ -89,31 +63,50 @@ class _SignUpViewState extends State<SignUpView> {
         padding: EdgeInsets.all(5),
         child: Column(
           children: [
-            TextField(
-              decoration: InputDecoration(labelText: 'Email'),
-              controller: emailController,
-              keyboardType: TextInputType.emailAddress,
+            Visibility(
+              visible: !_isSignedUp,
+              child: Column(children: [
+                TextFormField(
+                  enableSuggestions: false,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.email),
+                    hintText: 'Email',
+                    labelText: 'Email *',
+                  ),
+                  controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
+                ),
+                TextFormField(
+                  obscureText: true,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.lock),
+                    hintText: 'Password',
+                    labelText: 'Password *',
+                  ),
+                  controller: passwordController,
+                ),
+                FlatButton(
+                  textColor: Colors.black, // Theme.of(context).primaryColor,
+                  color: Colors.amber,
+                  onPressed: () => _signUp(context),
+                  child: Text(
+                    'Create Account',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Text(
+                  'Already registered? Sign In',
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+              ]),
             ),
-            TextField(
-              obscureText: true,
-              enableSuggestions: false,
-              autocorrect: false,
-              decoration: InputDecoration(labelText: 'Password'),
-              controller: passwordController,
-            ),
-            FlatButton(
-              textColor: Colors.black, // Theme.of(context).primaryColor,
-              color: Colors.amber,
-              onPressed: () => _signUp(context),
-              child: Text(
-                'Create Account',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-            Text(
-              'Already registered? Sign In',
-              style: Theme.of(context).textTheme.subtitle1,
-            ),
+            Visibility(
+                visible: _isSignedUp,
+                child: Column(children: [
+                  ConfirmSignup(emailController.text.trim(), _setError),
+                ])),
             const Padding(padding: EdgeInsets.all(10.0)),
             ErrorView(_signUpError, _signUpExceptions)
           ],

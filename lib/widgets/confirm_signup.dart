@@ -7,8 +7,9 @@ import 'kidz_screen.dart';
 class ConfirmSignup extends StatelessWidget {
   final codeController = TextEditingController();
   final String userName;
+  final Function setError;
 
-  ConfirmSignup(this.userName);
+  ConfirmSignup(this.userName, this.setError);
 
   void _confirm_signup(BuildContext context) async {
     try {
@@ -24,38 +25,38 @@ class ConfirmSignup extends StatelessWidget {
         ),
       );
     } on AuthError catch (e) {
-      print(e);
+      setError(e);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
-      child: Container(
-        // decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-        padding: EdgeInsets.all(5),
-        child: Column(
-          children: [
-            TextField(
-              decoration: InputDecoration(labelText: 'Verification code'),
+    return Container(
+      // decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+      padding: EdgeInsets.all(5),
+      child: Column(
+        children: [
+          TextFormField(
               controller: codeController,
+              decoration: const InputDecoration(
+                icon: Icon(Icons.confirmation_number),
+                hintText: 'The code we sent you',
+                labelText: 'Confirmation Code *',
+              )),
+          FlatButton(
+            textColor: Colors.black, // Theme.of(context).primaryColor,
+            color: Colors.amber,
+            onPressed: () => _confirm_signup(context),
+            child: Text(
+              'Confirm Sign Up',
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            FlatButton(
-              textColor: Colors.black, // Theme.of(context).primaryColor,
-              color: Colors.amber,
-              onPressed: () => _confirm_signup(context),
-              child: Text(
-                'Create Account',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-            Text(
-              'I\'ll do it later ? Skip',
-              style: Theme.of(context).textTheme.subtitle1,
-            ),
-          ],
-        ),
+          ),
+          Text(
+            'I\'ll do it later ? Skip',
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
+        ],
       ),
     );
   }

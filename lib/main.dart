@@ -47,8 +47,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool _bshowConfirmSignUp = false;
-  int _counter = 0;
   bool _amplifyConfigured = false;
   Amplify amplifyInstance = Amplify();
   String userName;
@@ -57,13 +55,6 @@ class _MyHomePageState extends State<MyHomePage> {
   initState() {
     super.initState();
     _configureAmplify();
-  }
-
-  void _showConfirmSignUp(username) {
-    setState(() {
-      userName = username;
-      _bshowConfirmSignUp = true;
-    });
   }
 
   void _configureAmplify() async {
@@ -106,9 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: _bshowConfirmSignUp
-                    ? ConfirmSignup(userName)
-                    : SignUpView(_showConfirmSignUp),
+                child: SignUpView(),
               ),
             ],
           ),
