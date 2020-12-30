@@ -93,6 +93,7 @@ class _SignUpViewState extends State<SignUpView> {
             TextField(
               decoration: InputDecoration(labelText: 'Email'),
               controller: emailController,
+              keyboardType: TextInputType.emailAddress,
             ),
             TextField(
               obscureText: true,

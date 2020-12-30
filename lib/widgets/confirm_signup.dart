@@ -2,6 +2,8 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
 
+import 'kidz_screen.dart';
+
 class ConfirmSignup extends StatelessWidget {
   final codeController = TextEditingController();
   final String userName;
@@ -13,6 +15,14 @@ class ConfirmSignup extends StatelessWidget {
       SignUpResult res = await Amplify.Auth.confirmSignUp(
           username: this.userName,
           confirmationCode: codeController.text.trim());
+
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) {
+            return KidzScreen();
+          },
+        ),
+      );
     } on AuthError catch (e) {
       print(e);
     }
@@ -41,7 +51,7 @@ class ConfirmSignup extends StatelessWidget {
               ),
             ),
             Text(
-              'Already registered? Sign In',
+              'I\'ll do it later ? Skip',
               style: Theme.of(context).textTheme.subtitle1,
             ),
           ],
