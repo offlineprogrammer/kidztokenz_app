@@ -3,6 +3,7 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kidztokenz_app/widgets/confirm_signup.dart';
+import 'package:kidztokenz_app/widgets/error_view.dart';
 
 class SignUpView extends StatefulWidget {
   final Function showConfirmSignUp;
@@ -51,6 +52,16 @@ class _SignUpViewState extends State<SignUpView> {
     }
   }
 
+  void _setError(AuthError error) {
+    setState(() {
+      _signUpError = error.cause;
+      _signUpExceptions.clear();
+      error.exceptionList.forEach((el) {
+        _signUpExceptions.add(el.exception);
+      });
+    });
+  }
+
   void _signUp(BuildContext context) async {
     try {
       Map<String, dynamic> userAttributes = {
@@ -64,20 +75,8 @@ class _SignUpViewState extends State<SignUpView> {
 
       print(res.isSignUpComplete);
       widget.showConfirmSignUp(emailController.text.trim());
-
-      /*     Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (_) {
-            return ConfirmSignup();
-          },
-        ),
-      ); */
-
-      //  setState(() {
-      // isSignUpComplete = res.isSignUpComplete;
-      //  });
-    } on AuthError catch (e) {
-      print(e.toString);
+    } on AuthError catch (error) {
+      _setError(error);
     }
   }
 
@@ -115,6 +114,8 @@ class _SignUpViewState extends State<SignUpView> {
               'Already registered? Sign In',
               style: Theme.of(context).textTheme.subtitle1,
             ),
+            const Padding(padding: EdgeInsets.all(10.0)),
+            ErrorView(_signUpError, _signUpExceptions)
           ],
         ),
       ),
