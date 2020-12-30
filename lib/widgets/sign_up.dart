@@ -96,9 +96,13 @@ class _SignUpViewState extends State<SignUpView> {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-                Text(
-                  'Already registered? Sign In',
-                  style: Theme.of(context).textTheme.subtitle1,
+                FlatButton(
+                  height: 5,
+                  onPressed: () {},
+                  child: Text(
+                    'Already registered? Sign In',
+                    style: Theme.of(context).textTheme.subtitle2,
+                  ),
                 ),
               ]),
             ),

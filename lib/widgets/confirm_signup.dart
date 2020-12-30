@@ -52,9 +52,12 @@ class ConfirmSignup extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
-          Text(
-            'I\'ll do it later ? Skip',
-            style: Theme.of(context).textTheme.subtitle1,
+          FlatButton(
+            onPressed: () {},
+            child: Text(
+              'I\'ll do it later ? Skip',
+              style: Theme.of(context).textTheme.subtitle2,
+            ),
           ),
         ],
       ),

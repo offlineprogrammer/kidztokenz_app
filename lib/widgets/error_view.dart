@@ -13,16 +13,25 @@ class ErrorView extends StatelessWidget {
         Text('Error: $error',
             textAlign: TextAlign.center,
             overflow: TextOverflow.visible,
-            style: TextStyle(fontWeight: FontWeight.bold)),
-        if (exceptions.length > 0) ...[_showExceptions()]
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).errorColor,
+            )),
+        if (exceptions.length > 0) ...[_showExceptions(context)]
       ]);
     } else {
       return Container();
     }
   }
 
-  _showExceptions() {
+  _showExceptions(context) {
     return Column(
-        children: exceptions.map((item) => new Text(item + " ")).toList());
+        children: exceptions
+            .map((item) => new Text(item + " ",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).errorColor,
+                )))
+            .toList());
   }
 }

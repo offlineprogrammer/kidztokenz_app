@@ -22,6 +22,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        textTheme: ThemeData.light().textTheme.copyWith(
+              subtitle2: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue,
+                  fontStyle: FontStyle.italic),
+            ),
       ),
       home: MyHomePage(title: 'Kidz Tokenz Home Page'),
     );
