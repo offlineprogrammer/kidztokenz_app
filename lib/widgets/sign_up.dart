@@ -58,63 +58,70 @@ class _SignUpViewState extends State<SignUpView> {
   Widget build(BuildContext context) {
     return Card(
       elevation: 2,
-      child: Container(
-        // decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-        padding: EdgeInsets.all(5),
-        child: Column(
-          children: [
-            Visibility(
-              visible: !_isSignedUp,
-              child: Column(children: [
-                TextFormField(
-                  enableSuggestions: false,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.email),
-                    hintText: 'Email',
-                    labelText: 'Email *',
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Visibility(
+                    visible: !_isSignedUp,
+                    child: Column(children: [
+                      TextFormField(
+                        enableSuggestions: false,
+                        decoration: const InputDecoration(
+                          icon: Icon(Icons.email),
+                          hintText: 'Email',
+                          labelText: 'Email *',
+                        ),
+                        controller: emailController,
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      TextFormField(
+                        obscureText: true,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        decoration: const InputDecoration(
+                          icon: Icon(Icons.lock),
+                          hintText: 'Password',
+                          labelText: 'Password *',
+                        ),
+                        controller: passwordController,
+                      ),
+                      FlatButton(
+                        textColor:
+                            Colors.black, // Theme.of(context).primaryColor,
+                        color: Colors.amber,
+                        onPressed: () => _signUp(context),
+                        child: Text(
+                          'Create Account',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      FlatButton(
+                        height: 5,
+                        onPressed: () {},
+                        child: Text(
+                          'Already registered? Sign In',
+                          style: Theme.of(context).textTheme.subtitle2,
+                        ),
+                      ),
+                    ]),
                   ),
-                  controller: emailController,
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                TextFormField(
-                  obscureText: true,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.lock),
-                    hintText: 'Password',
-                    labelText: 'Password *',
-                  ),
-                  controller: passwordController,
-                ),
-                FlatButton(
-                  textColor: Colors.black, // Theme.of(context).primaryColor,
-                  color: Colors.amber,
-                  onPressed: () => _signUp(context),
-                  child: Text(
-                    'Create Account',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-                FlatButton(
-                  height: 5,
-                  onPressed: () {},
-                  child: Text(
-                    'Already registered? Sign In',
-                    style: Theme.of(context).textTheme.subtitle2,
-                  ),
-                ),
-              ]),
+                  Visibility(
+                      visible: _isSignedUp,
+                      child: Column(children: [
+                        ConfirmSignup(emailController.text.trim(), _setError),
+                      ])),
+                  const Padding(padding: EdgeInsets.all(10.0)),
+                  ErrorView(_signUpError, _signUpExceptions)
+                ],
+              ),
             ),
-            Visibility(
-                visible: _isSignedUp,
-                child: Column(children: [
-                  ConfirmSignup(emailController.text.trim(), _setError),
-                ])),
-            const Padding(padding: EdgeInsets.all(10.0)),
-            ErrorView(_signUpError, _signUpExceptions)
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
