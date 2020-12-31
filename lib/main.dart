@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:kidztokenz_app/screens/loading_screen.dart';
+import 'package:kidztokenz_app/screens/main_screen.dart';
 import 'package:kidztokenz_app/widgets/confirm_signup.dart';
 import 'package:kidztokenz_app/widgets/sign_in.dart';
 import 'package:kidztokenz_app/widgets/sign_up.dart';
@@ -39,15 +41,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
@@ -83,34 +76,16 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  Widget _display() {
+    if (_amplifyConfigured) {
+      return MainScreen();
+    } else {
+      return LoadingScreen();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Container(
-        color: Color(0xff90CCE6),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                color: Color(0xff90CCE6),
-                height: 200,
-                child: Image.asset(
-                  'assets/images/storeicon.png',
-                  fit: BoxFit.cover,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SignInView(),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+    return _display();
   }
 }

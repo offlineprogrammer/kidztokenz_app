@@ -90,6 +90,7 @@ class _SignUpViewState extends State<SignUpView> {
                         ),
                         controller: passwordController,
                       ),
+                      const Padding(padding: EdgeInsets.all(10.0)),
                       FlatButton(
                         textColor:
                             Colors.black, // Theme.of(context).primaryColor,

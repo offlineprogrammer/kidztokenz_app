@@ -92,9 +92,35 @@ class _SignInViewState extends State<SignInView> {
                     ),
                   ),
                   const Padding(padding: EdgeInsets.all(10.0)),
-                  RaisedButton(
+                  FlatButton(
+                    textColor: Colors.black, // Theme.of(context).primaryColor,
+                    color: Colors.amber,
                     onPressed: _signIn,
-                    child: const Text('Sign In'),
+                    child: const Text(
+                      'Sign In',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      FlatButton(
+                        height: 5,
+                        onPressed: () {},
+                        child: Text(
+                          'Create Account',
+                          style: Theme.of(context).textTheme.subtitle2,
+                        ),
+                      ),
+                      FlatButton(
+                        height: 5,
+                        onPressed: () {},
+                        child: Text(
+                          'Reset Password',
+                          style: Theme.of(context).textTheme.subtitle2,
+                        ),
+                      ),
+                    ],
                   ),
                   ErrorView(_signUpError, _signUpExceptions)
                 ],
