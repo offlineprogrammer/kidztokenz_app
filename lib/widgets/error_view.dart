@@ -8,6 +8,7 @@ class ErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // We do not recognize your username and/or password. Please try again.
     if (error.isNotEmpty || exceptions.length > 0) {
       return Column(children: <Widget>[
         Text('Error: $error',

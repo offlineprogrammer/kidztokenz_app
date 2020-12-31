@@ -1,10 +1,14 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
+import 'package:kidztokenz_app/screens/kidz_screen.dart';
 import 'package:kidztokenz_app/widgets/error_view.dart';
-import 'package:kidztokenz_app/widgets/kidz_screen.dart';
 
 class SignInView extends StatefulWidget {
+  final Function _displayAccountWidget;
+
+  const SignInView(this._displayAccountWidget);
+
   @override
   _SignInViewState createState() => _SignInViewState();
 }
@@ -106,7 +110,7 @@ class _SignInViewState extends State<SignInView> {
                     children: <Widget>[
                       FlatButton(
                         height: 5,
-                        onPressed: () {},
+                        onPressed: _displayCreateAccount,
                         child: Text(
                           'Create Account',
                           style: Theme.of(context).textTheme.subtitle2,
@@ -114,7 +118,7 @@ class _SignInViewState extends State<SignInView> {
                       ),
                       FlatButton(
                         height: 5,
-                        onPressed: () {},
+                        onPressed: _displayResetPassword,
                         child: Text(
                           'Reset Password',
                           style: Theme.of(context).textTheme.subtitle2,
@@ -130,5 +134,13 @@ class _SignInViewState extends State<SignInView> {
         ],
       ),
     );
+  }
+
+  void _displayCreateAccount() {
+    widget._displayAccountWidget('sign_up');
+  }
+
+  void _displayResetPassword() {
+    widget._displayAccountWidget('reset_password');
   }
 }

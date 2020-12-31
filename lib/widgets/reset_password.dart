@@ -1,24 +1,21 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:kidztokenz_app/widgets/confirm_signup.dart';
+import 'package:kidztokenz_app/widgets/confirm_reset_password.dart';
 import 'package:kidztokenz_app/widgets/error_view.dart';
 
-class SignUpView extends StatefulWidget {
+class ResetPasswordView extends StatefulWidget {
   final Function _displayAccountWidget;
 
-  const SignUpView(this._displayAccountWidget);
+  const ResetPasswordView(this._displayAccountWidget);
 
   @override
-  _SignUpViewState createState() => _SignUpViewState();
+  _ResetPasswordViewState createState() => _ResetPasswordViewState();
 }
 
-class _SignUpViewState extends State<SignUpView> {
+class _ResetPasswordViewState extends State<ResetPasswordView> {
   final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  bool _isSignedUp = false;
-  DateTime signupDate;
+  bool _isPasswordReset = false;
 
   String _signUpError = "";
   List<String> _signUpExceptions = [];
@@ -38,23 +35,23 @@ class _SignUpViewState extends State<SignUpView> {
     });
   }
 
-  void _signUp(BuildContext context) async {
+  void _resetPassword(BuildContext context) async {
     try {
-      Map<String, dynamic> userAttributes = {
-        "email": emailController.text.trim(),
-        // additional attributes as needed
-      };
-      SignUpResult res = await Amplify.Auth.signUp(
-          username: emailController.text.trim(),
-          password: passwordController.text.trim(),
-          options: CognitoSignUpOptions(userAttributes: userAttributes));
+      ResetPasswordResult res = await Amplify.Auth.resetPassword(
+        username: emailController.text.trim(),
+      );
 
-      print(res.isSignUpComplete);
       setState(() {
-        _isSignedUp = true;
+        _isPasswordReset = true;
       });
-    } on AuthError catch (error) {
-      _setError(error);
+    } on AuthError catch (e) {
+      setState(() {
+        _signUpError = e.cause;
+        _signUpExceptions.clear();
+        e.exceptionList.forEach((el) {
+          _signUpExceptions.add(el.exception);
+        });
+      });
     }
   }
 
@@ -71,7 +68,7 @@ class _SignUpViewState extends State<SignUpView> {
               child: Column(
                 children: [
                   Visibility(
-                    visible: !_isSignedUp,
+                    visible: !_isPasswordReset,
                     child: Column(children: [
                       TextFormField(
                         enableSuggestions: false,
@@ -83,42 +80,32 @@ class _SignUpViewState extends State<SignUpView> {
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
                       ),
-                      TextFormField(
-                        obscureText: true,
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        decoration: const InputDecoration(
-                          icon: Icon(Icons.lock),
-                          hintText: 'Password',
-                          labelText: 'Password *',
-                        ),
-                        controller: passwordController,
-                      ),
                       const Padding(padding: EdgeInsets.all(10.0)),
                       FlatButton(
                         textColor:
                             Colors.black, // Theme.of(context).primaryColor,
                         color: Colors.amber,
-                        onPressed: () => _signUp(context),
+                        onPressed: () => _resetPassword(context),
                         child: Text(
-                          'Create Account',
+                          'Reset Password',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
                       FlatButton(
                         height: 5,
-                        onPressed: _displaySignIn,
+                        onPressed: _displayCreateAccount,
                         child: Text(
-                          'Already registered? Sign In',
+                          'Create Account',
                           style: Theme.of(context).textTheme.subtitle2,
                         ),
                       ),
                     ]),
                   ),
                   Visibility(
-                      visible: _isSignedUp,
+                      visible: _isPasswordReset,
                       child: Column(children: [
-                        ConfirmSignup(emailController.text.trim(), _setError),
+                        ConfirmResetPassword(
+                            emailController.text.trim(), _setError),
                       ])),
                   const Padding(padding: EdgeInsets.all(10.0)),
                   ErrorView(_signUpError, _signUpExceptions)
@@ -131,7 +118,7 @@ class _SignUpViewState extends State<SignUpView> {
     );
   }
 
-  void _displaySignIn() {
-    widget._displayAccountWidget('sign_in');
+  void _displayCreateAccount() {
+    widget._displayAccountWidget('sign_up');
   }
 }
