@@ -121,7 +121,6 @@ class _SignUpViewState extends State<SignUpView> {
                       child: Column(children: [
                         ConfirmSignup(emailController.text.trim(), _setError),
                       ])),
-                  const Padding(padding: EdgeInsets.all(10.0)),
                   ErrorView(_signUpError, _signUpExceptions)
                 ],
               ),

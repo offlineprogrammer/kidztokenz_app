@@ -82,9 +82,9 @@ class _SignInViewState extends State<SignInView> {
                   TextFormField(
                     controller: emailController,
                     decoration: const InputDecoration(
-                      icon: Icon(Icons.person),
+                      icon: Icon(Icons.email),
                       hintText: 'Enter your email',
-                      labelText: 'email *',
+                      labelText: 'Email *',
                     ),
                   ),
                   TextFormField(

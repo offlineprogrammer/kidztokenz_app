@@ -10,22 +10,30 @@ class ConfirmSignup extends StatelessWidget {
 
   ConfirmSignup(this.userName, this.setError);
 
+  void _skip_confirm_signup(BuildContext context) {
+    _go_to_KidzScreen(context);
+  }
+
   void _confirm_signup(BuildContext context) async {
     try {
       SignUpResult res = await Amplify.Auth.confirmSignUp(
           username: this.userName,
           confirmationCode: codeController.text.trim());
 
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (_) {
-            return KidzScreen();
-          },
-        ),
-      );
+      _go_to_KidzScreen(context);
     } on AuthError catch (e) {
       setError(e);
     }
+  }
+
+  void _go_to_KidzScreen(BuildContext context) {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (_) {
+          return KidzScreen();
+        },
+      ),
+    );
   }
 
   @override
@@ -52,7 +60,7 @@ class ConfirmSignup extends StatelessWidget {
             ),
           ),
           FlatButton(
-            onPressed: () {},
+            onPressed: () => _skip_confirm_signup(context),
             child: Text(
               'I\'ll do it later ? Skip',
               style: Theme.of(context).textTheme.subtitle2,

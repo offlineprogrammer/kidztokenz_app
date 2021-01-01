@@ -108,7 +108,6 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                         ConfirmResetPassword(
                             emailController.text.trim(), _setError),
                       ])),
-                  const Padding(padding: EdgeInsets.all(10.0)),
                   ErrorView(_signUpError, _signUpExceptions)
                 ],
               ),
