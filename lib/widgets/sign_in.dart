@@ -1,6 +1,7 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
+import 'package:kidztokenz_app/account_screens_enum.dart';
 import 'package:kidztokenz_app/screens/kidz_screen.dart';
 import 'package:kidztokenz_app/widgets/error_view.dart';
 
@@ -137,10 +138,10 @@ class _SignInViewState extends State<SignInView> {
   }
 
   void _displayCreateAccount() {
-    widget._displayAccountWidget('sign_up');
+    widget._displayAccountWidget(AccountStatus.sign_up.index);
   }
 
   void _displayResetPassword() {
-    widget._displayAccountWidget('reset_password');
+    widget._displayAccountWidget(AccountStatus.reset_password.index);
   }
 }

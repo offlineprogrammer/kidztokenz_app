@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kidztokenz_app/account_screens_enum.dart';
 import 'package:kidztokenz_app/widgets/reset_password.dart';
 import 'package:kidztokenz_app/widgets/sign_in.dart';
 import 'package:kidztokenz_app/widgets/sign_up.dart';
@@ -8,29 +9,12 @@ class MainScreen extends StatefulWidget {
   _MainScreenState createState() => _MainScreenState();
 }
 
-enum AccountStatus { sign_in, sign_up, reset_password, confirm_code }
-
 class _MainScreenState extends State<MainScreen> {
   var _accountWidget = AccountStatus.sign_in;
 
-  void _displayAccountWidget(String accountStatus) {
+  void _displayAccountWidget(int accountStatus) {
     setState(() {
-      switch (accountStatus) {
-        case 'sign_in':
-          _accountWidget = AccountStatus.sign_in;
-          break;
-        case 'sign_up':
-          _accountWidget = AccountStatus.sign_up;
-          break;
-        case 'reset_password':
-          _accountWidget = AccountStatus.reset_password;
-          break;
-        case 'confirm_code':
-          _accountWidget = AccountStatus.confirm_code;
-          break;
-        default:
-          _accountWidget = AccountStatus.sign_up;
-      }
+      _accountWidget = AccountStatus.values[accountStatus];
     });
   }
 
