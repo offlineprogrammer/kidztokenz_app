@@ -17,13 +17,12 @@
 
 import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-/** This is an auto generated class representing the Kid type in your schema. */
+/** This is an auto generated class representing the KidTask type in your schema. */
 @immutable
-class Kid extends Model {
-  static const classType = const KidType();
+class KidTask extends Model {
+  static const classType = const KidTaskType();
   final String id;
   final String dateCreated;
   final String kidname;
@@ -32,8 +31,7 @@ class Kid extends Model {
   final String tokenImageResourceName;
   final String tokenNumberImageResourceName;
   final int tokenNumber;
-  final User user;
-  final List<KidTask> taskz;
+  final Kid kid;
 
   @override
   getInstanceType() => classType;
@@ -43,7 +41,7 @@ class Kid extends Model {
     return id;
   }
 
-  const Kid._internal(
+  const KidTask._internal(
       {@required this.id,
       this.dateCreated,
       this.kidname,
@@ -52,10 +50,9 @@ class Kid extends Model {
       this.tokenImageResourceName,
       this.tokenNumberImageResourceName,
       this.tokenNumber,
-      this.user,
-      this.taskz});
+      this.kid});
 
-  factory Kid(
+  factory KidTask(
       {@required String id,
       String dateCreated,
       String kidname,
@@ -64,9 +61,8 @@ class Kid extends Model {
       String tokenImageResourceName,
       String tokenNumberImageResourceName,
       int tokenNumber,
-      User user,
-      List<KidTask> taskz}) {
-    return Kid._internal(
+      Kid kid}) {
+    return KidTask._internal(
         id: id == null ? UUID.getUUID() : id,
         dateCreated: dateCreated,
         kidname: kidname,
@@ -75,8 +71,7 @@ class Kid extends Model {
         tokenImageResourceName: tokenImageResourceName,
         tokenNumberImageResourceName: tokenNumberImageResourceName,
         tokenNumber: tokenNumber,
-        user: user,
-        taskz: taskz != null ? List.unmodifiable(taskz) : taskz);
+        kid: kid);
   }
 
   bool equals(Object other) {
@@ -86,7 +81,7 @@ class Kid extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Kid &&
+    return other is KidTask &&
         id == other.id &&
         dateCreated == other.dateCreated &&
         kidname == other.kidname &&
@@ -95,8 +90,7 @@ class Kid extends Model {
         tokenImageResourceName == other.tokenImageResourceName &&
         tokenNumberImageResourceName == other.tokenNumberImageResourceName &&
         tokenNumber == other.tokenNumber &&
-        user == other.user &&
-        DeepCollectionEquality().equals(taskz, other.taskz);
+        kid == other.kid;
   }
 
   @override
@@ -106,7 +100,7 @@ class Kid extends Model {
   String toString() {
     var buffer = new StringBuffer();
 
-    buffer.write("Kid {");
+    buffer.write("KidTask {");
     buffer.write("id=" + id + ", ");
     buffer.write("dateCreated=" + dateCreated + ", ");
     buffer.write("kidname=" + kidname + ", ");
@@ -119,13 +113,13 @@ class Kid extends Model {
     buffer.write("tokenNumber=" +
         (tokenNumber != null ? tokenNumber.toString() : "null") +
         ", ");
-    buffer.write("user=" + (user != null ? user.toString() : "null"));
+    buffer.write("kid=" + (kid != null ? kid.toString() : "null"));
     buffer.write("}");
 
     return buffer.toString();
   }
 
-  Kid copyWith(
+  KidTask copyWith(
       {String id,
       String dateCreated,
       String kidname,
@@ -134,9 +128,8 @@ class Kid extends Model {
       String tokenImageResourceName,
       String tokenNumberImageResourceName,
       int tokenNumber,
-      User user,
-      List<KidTask> taskz}) {
-    return Kid(
+      Kid kid}) {
+    return KidTask(
         id: id ?? this.id,
         dateCreated: dateCreated ?? this.dateCreated,
         kidname: kidname ?? this.kidname,
@@ -148,11 +141,10 @@ class Kid extends Model {
         tokenNumberImageResourceName:
             tokenNumberImageResourceName ?? this.tokenNumberImageResourceName,
         tokenNumber: tokenNumber ?? this.tokenNumber,
-        user: user ?? this.user,
-        taskz: taskz ?? this.taskz);
+        kid: kid ?? this.kid);
   }
 
-  Kid.fromJson(Map<String, dynamic> json)
+  KidTask.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         dateCreated = json['dateCreated'],
         kidname = json['kidname'],
@@ -161,13 +153,8 @@ class Kid extends Model {
         tokenImageResourceName = json['tokenImageResourceName'],
         tokenNumberImageResourceName = json['tokenNumberImageResourceName'],
         tokenNumber = json['tokenNumber'],
-        user = json['user'] != null
-            ? User.fromJson(new Map<String, dynamic>.from(json['user']))
-            : null,
-        taskz = json['taskz'] is List
-            ? (json['taskz'] as List)
-                .map((e) => KidTask.fromJson(new Map<String, dynamic>.from(e)))
-                .toList()
+        kid = json['kid'] != null
+            ? Kid.fromJson(new Map<String, dynamic>.from(json['kid']))
             : null;
 
   Map<String, dynamic> toJson() => {
@@ -179,11 +166,10 @@ class Kid extends Model {
         'tokenImageResourceName': tokenImageResourceName,
         'tokenNumberImageResourceName': tokenNumberImageResourceName,
         'tokenNumber': tokenNumber,
-        'user': user?.toJson(),
-        'taskz': taskz?.map((e) => e?.toJson())
+        'kid': kid?.toJson()
       };
 
-  static final QueryField ID = QueryField(fieldName: "kid.id");
+  static final QueryField ID = QueryField(fieldName: "kidTask.id");
   static final QueryField DATECREATED = QueryField(fieldName: "dateCreated");
   static final QueryField KIDNAME = QueryField(fieldName: "kidname");
   static final QueryField KIDUUID = QueryField(fieldName: "kidUUID");
@@ -194,75 +180,65 @@ class Kid extends Model {
   static final QueryField TOKENNUMBERIMAGERESOURCENAME =
       QueryField(fieldName: "tokenNumberImageResourceName");
   static final QueryField TOKENNUMBER = QueryField(fieldName: "tokenNumber");
-  static final QueryField USER = QueryField(
-      fieldName: "user",
+  static final QueryField KID = QueryField(
+      fieldName: "kid",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (User).toString()));
-  static final QueryField TASKZ = QueryField(
-      fieldName: "taskz",
-      fieldType: ModelFieldType(ModelFieldTypeEnum.model,
-          ofModelName: (KidTask).toString()));
+          ofModelName: (Kid).toString()));
   static var schema =
       Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Kid";
-    modelSchemaDefinition.pluralName = "Kids";
+    modelSchemaDefinition.name = "KidTask";
+    modelSchemaDefinition.pluralName = "KidTasks";
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Kid.DATECREATED,
+        key: KidTask.DATECREATED,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Kid.KIDNAME,
+        key: KidTask.KIDNAME,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Kid.KIDUUID,
+        key: KidTask.KIDUUID,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Kid.BADTOKENIMAGERESOURCENAME,
+        key: KidTask.BADTOKENIMAGERESOURCENAME,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Kid.TOKENIMAGERESOURCENAME,
+        key: KidTask.TOKENIMAGERESOURCENAME,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Kid.TOKENNUMBERIMAGERESOURCENAME,
+        key: KidTask.TOKENNUMBERIMAGERESOURCENAME,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Kid.TOKENNUMBER,
+        key: KidTask.TOKENNUMBER,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.int)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-        key: Kid.USER,
+        key: KidTask.KID,
         isRequired: false,
-        targetName: "userID",
-        ofModelName: (User).toString()));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-        key: Kid.TASKZ,
-        isRequired: false,
-        ofModelName: (KidTask).toString(),
-        associatedKey: KidTask.KID));
+        targetName: "kidID",
+        ofModelName: (Kid).toString()));
   });
 }
 
-class KidType extends ModelType<Kid> {
-  const KidType();
+class KidTaskType extends ModelType<KidTask> {
+  const KidTaskType();
 
   @override
-  Kid fromJson(Map<String, dynamic> jsonData) {
-    return Kid.fromJson(jsonData);
+  KidTask fromJson(Map<String, dynamic> jsonData) {
+    return KidTask.fromJson(jsonData);
   }
 }

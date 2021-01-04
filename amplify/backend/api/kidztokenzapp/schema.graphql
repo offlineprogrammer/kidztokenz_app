@@ -1,0 +1,38 @@
+type User @model {
+  id: ID!
+  dateCreated: String
+  fcmInstanceId: String
+  userEmail: String
+  userId: String
+  kidz: [Kid] @connection(keyName: "byUser", fields: ["id"])
+}
+
+type Kid @model @key(name: "byUser", fields: ["userID"]) {
+  id: ID!
+  userID: ID!
+  dateCreated: String
+  kidname: String
+  kidUUID: String
+  badTokenImageResourceName: String
+  tokenImageResourceName: String
+  tokenNumberImageResourceName: String
+  tokenNumber: Int
+  user: User @connection(fields: ["userID"])
+  taskz: [KidTask] @connection(keyName: "byKid", fields: ["id"])
+}
+
+type KidTask @model @key(name: "byKid", fields: ["kidID"]) {
+  id: ID!
+  kidID: ID!
+  dateCreated: String
+  kidname: String
+  kidUUID: String
+  badTokenImageResourceName: String
+  tokenImageResourceName: String
+  tokenNumberImageResourceName: String
+  tokenNumber: Int
+  kid: Kid @connection(fields: ["kidID"])
+
+}
+
+
