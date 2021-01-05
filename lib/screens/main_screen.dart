@@ -6,6 +6,8 @@ import 'package:kidztokenz_app/widgets/reset_password.dart';
 import 'package:kidztokenz_app/widgets/sign_in.dart';
 import 'package:kidztokenz_app/widgets/sign_up.dart';
 
+import 'kidz_screen.dart';
+
 class MainScreen extends StatefulWidget {
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -28,14 +30,13 @@ class _MainScreenState extends State<MainScreen> {
       print('Session');
 
       if (res.isSignedIn) {
-        _accountWidget = AccountStatus.main_screen;
         print('Main');
+        _go_to_KidzScreen();
       } else {
-        _accountWidget = AccountStatus.sign_in;
+        _accountWidget = AccountStatus.sign_in.index;
+        _displayAccountWidget(_accountWidget);
         print('Sing');
       }
-
-      _displayAccountWidget(_accountWidget);
     } on AuthError catch (e) {
       print(e);
     }
@@ -45,6 +46,16 @@ class _MainScreenState extends State<MainScreen> {
     setState(() {
       _accountWidget = AccountStatus.values[accountStatus];
     });
+  }
+
+  void _go_to_KidzScreen() {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (_) {
+          return KidzScreen();
+        },
+      ),
+    );
   }
 
   @override
@@ -81,6 +92,10 @@ class _MainScreenState extends State<MainScreen> {
                   Visibility(
                     visible: _accountWidget == AccountStatus.reset_password,
                     child: ResetPasswordView(_displayAccountWidget),
+                  ),
+                  Visibility(
+                    visible: _accountWidget == AccountStatus.main_screen,
+                    child: KidzScreen(),
                   ),
                 ]),
               ),

@@ -1,22 +1,23 @@
-/* import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:kidztokenz_app/models/kid.dart';
 import 'package:kidztokenz_app/widgets/kid_item.dart';
 
-
-
 class KidzScreen extends StatelessWidget {
+  final List<Kid> kidz = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('DeliMeal'),
+        title: const Text('Kidz'),
       ),
       body: GridView(
         padding: const EdgeInsets.all(25),
-        children: DUMMY_CATEGORIES
+        children: kidz
             .map(
               (catData) => KidItem(
-                catData.kidName,
-                catData.monsterImageResourceName,
+                catData.kidname,
+                catData.tokenImageResourceName,
               ),
             )
             .toList(),
@@ -30,4 +31,3 @@ class KidzScreen extends StatelessWidget {
     );
   }
 }
- */
