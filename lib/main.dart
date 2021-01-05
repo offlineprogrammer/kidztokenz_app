@@ -1,16 +1,16 @@
+import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:flutter/material.dart';
 // Amplify Flutter Packages
 import 'package:amplify_core/amplify_core.dart';
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+//import 'codegen/ModelProvider.dart';
 import 'package:kidztokenz_app/screens/loading_screen.dart';
 import 'package:kidztokenz_app/screens/main_screen.dart';
-import 'package:kidztokenz_app/widgets/confirm_signup.dart';
-import 'package:kidztokenz_app/widgets/sign_in.dart';
-import 'package:kidztokenz_app/widgets/sign_up.dart';
 
 // Generated in previous step
 import 'amplifyconfiguration.dart';
+import 'models/ModelProvider.dart';
 
 void main() {
   runApp(MyApp());
@@ -64,6 +64,10 @@ class _MyHomePageState extends State<MyHomePage> {
     AmplifyAuthCognito authPlugin = AmplifyAuthCognito();
     amplifyInstance.addPlugin(
         authPlugins: [authPlugin], analyticsPlugins: [analyticsPlugin]);
+
+    AmplifyDataStore datastorePlugin =
+        AmplifyDataStore(modelProvider: ModelProvider.instance);
+    amplifyInstance.addPlugin(dataStorePlugins: [datastorePlugin]);
 
     // Once Plugins are added, configure Amplify
     await amplifyInstance.configure(amplifyconfig);

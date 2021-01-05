@@ -1,3 +1,5 @@
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
 import 'package:kidztokenz_app/account_screens_enum.dart';
 import 'package:kidztokenz_app/widgets/reset_password.dart';
@@ -10,7 +12,34 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  var _accountWidget = AccountStatus.sign_in;
+  var _accountWidget;
+
+  @override
+  initState() {
+    super.initState();
+    _fetchSession();
+  }
+
+  void _fetchSession() async {
+    try {
+      CognitoAuthSession res = await Amplify.Auth.fetchAuthSession(
+          options: CognitoSessionOptions(getAWSCredentials: false));
+
+      print('Session');
+
+      if (res.isSignedIn) {
+        _accountWidget = AccountStatus.main_screen;
+        print('Main');
+      } else {
+        _accountWidget = AccountStatus.sign_in;
+        print('Sing');
+      }
+
+      _displayAccountWidget(_accountWidget);
+    } on AuthError catch (e) {
+      print(e);
+    }
+  }
 
   void _displayAccountWidget(int accountStatus) {
     setState(() {

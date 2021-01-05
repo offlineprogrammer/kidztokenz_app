@@ -48,13 +48,16 @@ class _SignInViewState extends State<SignInView> {
       SignInResult res = await Amplify.Auth.signIn(
           username: emailController.text.trim(),
           password: passwordController.text.trim());
-      Navigator.of(context).pushReplacement(
+
+      /*     Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (_) {
             return KidzScreen();
           },
         ),
       );
+*/
+
     } on AuthError catch (e) {
       setState(() {
         _signUpError = e.cause;

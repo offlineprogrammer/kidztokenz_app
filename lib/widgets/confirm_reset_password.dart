@@ -18,13 +18,13 @@ class ConfirmResetPassword extends StatelessWidget {
           username: this.userName,
           newPassword: passwordController.text.trim(),
           confirmationCode: codeController.text.trim());
-      Navigator.of(context).pushReplacement(
+/*       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (_) {
             return KidzScreen();
           },
         ),
-      );
+      ); */
     } on AuthError catch (e) {
       setError(e);
     }

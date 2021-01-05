@@ -1,6 +1,8 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
+import 'package:kidztokenz_app/models/User.dart';
+import 'package:kidztokenz_app/models/kid.dart';
 import 'package:kidztokenz_app/screens/kidz_screen.dart';
 
 class ConfirmSignup extends StatelessWidget {
@@ -20,20 +22,36 @@ class ConfirmSignup extends StatelessWidget {
           username: this.userName,
           confirmationCode: codeController.text.trim());
 
-      _go_to_KidzScreen(context);
+      _create_user();
     } on AuthError catch (e) {
       setError(e);
     }
   }
 
+  void _create_user() async {
+    try {
+      User newUser = User(
+          id: null,
+          dateCreated: DateTime.now().toString(),
+          fcmInstanceId: 'N/A',
+          userEmail: this.userName,
+          userId: 'N/A');
+
+      await Amplify.DataStore.save(newUser);
+      print("Created a user");
+    } catch (e) {
+      setError(e);
+    }
+  }
+
   void _go_to_KidzScreen(BuildContext context) {
-    Navigator.of(context).pushReplacement(
+/*     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (_) {
           return KidzScreen();
         },
       ),
-    );
+    ); */
   }
 
   @override

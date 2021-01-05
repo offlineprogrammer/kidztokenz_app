@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:kidztokenz_app/widgets/kid_item.dart';
 
-import '../dummy_data.dart';
+
 
 class KidzScreen extends StatelessWidget {
   @override
@@ -30,3 +30,4 @@ class KidzScreen extends StatelessWidget {
     );
   }
 }
+ */
