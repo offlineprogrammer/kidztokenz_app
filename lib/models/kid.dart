@@ -27,7 +27,7 @@ class Kid extends Model {
   final String id;
   final String dateCreated;
   final String kidname;
-  final String kidUUID;
+  final String monsterImageResourceName;
   final String badTokenImageResourceName;
   final String tokenImageResourceName;
   final String tokenNumberImageResourceName;
@@ -47,7 +47,7 @@ class Kid extends Model {
       {@required this.id,
       this.dateCreated,
       this.kidname,
-      this.kidUUID,
+      this.monsterImageResourceName,
       this.badTokenImageResourceName,
       this.tokenImageResourceName,
       this.tokenNumberImageResourceName,
@@ -59,7 +59,7 @@ class Kid extends Model {
       {@required String id,
       String dateCreated,
       String kidname,
-      String kidUUID,
+      String monsterImageResourceName,
       String badTokenImageResourceName,
       String tokenImageResourceName,
       String tokenNumberImageResourceName,
@@ -70,7 +70,7 @@ class Kid extends Model {
         id: id == null ? UUID.getUUID() : id,
         dateCreated: dateCreated,
         kidname: kidname,
-        kidUUID: kidUUID,
+        monsterImageResourceName: monsterImageResourceName,
         badTokenImageResourceName: badTokenImageResourceName,
         tokenImageResourceName: tokenImageResourceName,
         tokenNumberImageResourceName: tokenNumberImageResourceName,
@@ -90,7 +90,7 @@ class Kid extends Model {
         id == other.id &&
         dateCreated == other.dateCreated &&
         kidname == other.kidname &&
-        kidUUID == other.kidUUID &&
+        monsterImageResourceName == other.monsterImageResourceName &&
         badTokenImageResourceName == other.badTokenImageResourceName &&
         tokenImageResourceName == other.tokenImageResourceName &&
         tokenNumberImageResourceName == other.tokenNumberImageResourceName &&
@@ -110,7 +110,7 @@ class Kid extends Model {
     buffer.write("id=" + id + ", ");
     buffer.write("dateCreated=" + dateCreated + ", ");
     buffer.write("kidname=" + kidname + ", ");
-    buffer.write("kidUUID=" + kidUUID + ", ");
+    buffer.write("monsterImageResourceName=" + monsterImageResourceName + ", ");
     buffer
         .write("badTokenImageResourceName=" + badTokenImageResourceName + ", ");
     buffer.write("tokenImageResourceName=" + tokenImageResourceName + ", ");
@@ -129,7 +129,7 @@ class Kid extends Model {
       {String id,
       String dateCreated,
       String kidname,
-      String kidUUID,
+      String monsterImageResourceName,
       String badTokenImageResourceName,
       String tokenImageResourceName,
       String tokenNumberImageResourceName,
@@ -140,7 +140,8 @@ class Kid extends Model {
         id: id ?? this.id,
         dateCreated: dateCreated ?? this.dateCreated,
         kidname: kidname ?? this.kidname,
-        kidUUID: kidUUID ?? this.kidUUID,
+        monsterImageResourceName:
+            monsterImageResourceName ?? this.monsterImageResourceName,
         badTokenImageResourceName:
             badTokenImageResourceName ?? this.badTokenImageResourceName,
         tokenImageResourceName:
@@ -156,7 +157,7 @@ class Kid extends Model {
       : id = json['id'],
         dateCreated = json['dateCreated'],
         kidname = json['kidname'],
-        kidUUID = json['kidUUID'],
+        monsterImageResourceName = json['monsterImageResourceName'],
         badTokenImageResourceName = json['badTokenImageResourceName'],
         tokenImageResourceName = json['tokenImageResourceName'],
         tokenNumberImageResourceName = json['tokenNumberImageResourceName'],
@@ -174,7 +175,7 @@ class Kid extends Model {
         'id': id,
         'dateCreated': dateCreated,
         'kidname': kidname,
-        'kidUUID': kidUUID,
+        'monsterImageResourceName': monsterImageResourceName,
         'badTokenImageResourceName': badTokenImageResourceName,
         'tokenImageResourceName': tokenImageResourceName,
         'tokenNumberImageResourceName': tokenNumberImageResourceName,
@@ -186,7 +187,8 @@ class Kid extends Model {
   static final QueryField ID = QueryField(fieldName: "kid.id");
   static final QueryField DATECREATED = QueryField(fieldName: "dateCreated");
   static final QueryField KIDNAME = QueryField(fieldName: "kidname");
-  static final QueryField KIDUUID = QueryField(fieldName: "kidUUID");
+  static final QueryField MONSTERIMAGERESOURCENAME =
+      QueryField(fieldName: "monsterImageResourceName");
   static final QueryField BADTOKENIMAGERESOURCENAME =
       QueryField(fieldName: "badTokenImageResourceName");
   static final QueryField TOKENIMAGERESOURCENAME =
@@ -220,7 +222,7 @@ class Kid extends Model {
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: Kid.KIDUUID,
+        key: Kid.MONSTERIMAGERESOURCENAME,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 

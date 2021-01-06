@@ -17,6 +17,7 @@
 
 import 'ModelProvider.dart';
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
 /** This is an auto generated class representing the KidTask type in your schema. */
@@ -25,12 +26,11 @@ class KidTask extends Model {
   static const classType = const KidTaskType();
   final String id;
   final String dateCreated;
-  final String kidname;
-  final String kidUUID;
-  final String badTokenImageResourceName;
-  final String tokenImageResourceName;
-  final String tokenNumberImageResourceName;
-  final int tokenNumber;
+  final String taskName;
+  final String taskImageResourceName;
+  final String taskImageUrl;
+  final List<int> taskTokenzScore;
+  final bool negativeReTask;
   final Kid kid;
 
   @override
@@ -44,33 +44,32 @@ class KidTask extends Model {
   const KidTask._internal(
       {@required this.id,
       this.dateCreated,
-      this.kidname,
-      this.kidUUID,
-      this.badTokenImageResourceName,
-      this.tokenImageResourceName,
-      this.tokenNumberImageResourceName,
-      this.tokenNumber,
+      this.taskName,
+      this.taskImageResourceName,
+      this.taskImageUrl,
+      this.taskTokenzScore,
+      this.negativeReTask,
       this.kid});
 
   factory KidTask(
       {@required String id,
       String dateCreated,
-      String kidname,
-      String kidUUID,
-      String badTokenImageResourceName,
-      String tokenImageResourceName,
-      String tokenNumberImageResourceName,
-      int tokenNumber,
+      String taskName,
+      String taskImageResourceName,
+      String taskImageUrl,
+      List<int> taskTokenzScore,
+      bool negativeReTask,
       Kid kid}) {
     return KidTask._internal(
         id: id == null ? UUID.getUUID() : id,
         dateCreated: dateCreated,
-        kidname: kidname,
-        kidUUID: kidUUID,
-        badTokenImageResourceName: badTokenImageResourceName,
-        tokenImageResourceName: tokenImageResourceName,
-        tokenNumberImageResourceName: tokenNumberImageResourceName,
-        tokenNumber: tokenNumber,
+        taskName: taskName,
+        taskImageResourceName: taskImageResourceName,
+        taskImageUrl: taskImageUrl,
+        taskTokenzScore: taskTokenzScore != null
+            ? List.unmodifiable(taskTokenzScore)
+            : taskTokenzScore,
+        negativeReTask: negativeReTask,
         kid: kid);
   }
 
@@ -84,12 +83,12 @@ class KidTask extends Model {
     return other is KidTask &&
         id == other.id &&
         dateCreated == other.dateCreated &&
-        kidname == other.kidname &&
-        kidUUID == other.kidUUID &&
-        badTokenImageResourceName == other.badTokenImageResourceName &&
-        tokenImageResourceName == other.tokenImageResourceName &&
-        tokenNumberImageResourceName == other.tokenNumberImageResourceName &&
-        tokenNumber == other.tokenNumber &&
+        taskName == other.taskName &&
+        taskImageResourceName == other.taskImageResourceName &&
+        taskImageUrl == other.taskImageUrl &&
+        DeepCollectionEquality()
+            .equals(taskTokenzScore, other.taskTokenzScore) &&
+        negativeReTask == other.negativeReTask &&
         kid == other.kid;
   }
 
@@ -103,15 +102,14 @@ class KidTask extends Model {
     buffer.write("KidTask {");
     buffer.write("id=" + id + ", ");
     buffer.write("dateCreated=" + dateCreated + ", ");
-    buffer.write("kidname=" + kidname + ", ");
-    buffer.write("kidUUID=" + kidUUID + ", ");
-    buffer
-        .write("badTokenImageResourceName=" + badTokenImageResourceName + ", ");
-    buffer.write("tokenImageResourceName=" + tokenImageResourceName + ", ");
-    buffer.write(
-        "tokenNumberImageResourceName=" + tokenNumberImageResourceName + ", ");
-    buffer.write("tokenNumber=" +
-        (tokenNumber != null ? tokenNumber.toString() : "null") +
+    buffer.write("taskName=" + taskName + ", ");
+    buffer.write("taskImageResourceName=" + taskImageResourceName + ", ");
+    buffer.write("taskImageUrl=" + taskImageUrl + ", ");
+    buffer.write("taskTokenzScore=" +
+        (taskTokenzScore != null ? taskTokenzScore.toString() : "null") +
+        ", ");
+    buffer.write("negativeReTask=" +
+        (negativeReTask != null ? negativeReTask.toString() : "null") +
         ", ");
     buffer.write("kid=" + (kid != null ? kid.toString() : "null"));
     buffer.write("}");
@@ -122,37 +120,32 @@ class KidTask extends Model {
   KidTask copyWith(
       {String id,
       String dateCreated,
-      String kidname,
-      String kidUUID,
-      String badTokenImageResourceName,
-      String tokenImageResourceName,
-      String tokenNumberImageResourceName,
-      int tokenNumber,
+      String taskName,
+      String taskImageResourceName,
+      String taskImageUrl,
+      List<int> taskTokenzScore,
+      bool negativeReTask,
       Kid kid}) {
     return KidTask(
         id: id ?? this.id,
         dateCreated: dateCreated ?? this.dateCreated,
-        kidname: kidname ?? this.kidname,
-        kidUUID: kidUUID ?? this.kidUUID,
-        badTokenImageResourceName:
-            badTokenImageResourceName ?? this.badTokenImageResourceName,
-        tokenImageResourceName:
-            tokenImageResourceName ?? this.tokenImageResourceName,
-        tokenNumberImageResourceName:
-            tokenNumberImageResourceName ?? this.tokenNumberImageResourceName,
-        tokenNumber: tokenNumber ?? this.tokenNumber,
+        taskName: taskName ?? this.taskName,
+        taskImageResourceName:
+            taskImageResourceName ?? this.taskImageResourceName,
+        taskImageUrl: taskImageUrl ?? this.taskImageUrl,
+        taskTokenzScore: taskTokenzScore ?? this.taskTokenzScore,
+        negativeReTask: negativeReTask ?? this.negativeReTask,
         kid: kid ?? this.kid);
   }
 
   KidTask.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         dateCreated = json['dateCreated'],
-        kidname = json['kidname'],
-        kidUUID = json['kidUUID'],
-        badTokenImageResourceName = json['badTokenImageResourceName'],
-        tokenImageResourceName = json['tokenImageResourceName'],
-        tokenNumberImageResourceName = json['tokenNumberImageResourceName'],
-        tokenNumber = json['tokenNumber'],
+        taskName = json['taskName'],
+        taskImageResourceName = json['taskImageResourceName'],
+        taskImageUrl = json['taskImageUrl'],
+        taskTokenzScore = json['taskTokenzScore']?.cast<int>(),
+        negativeReTask = json['negativeReTask'],
         kid = json['kid'] != null
             ? Kid.fromJson(new Map<String, dynamic>.from(json['kid']))
             : null;
@@ -160,26 +153,24 @@ class KidTask extends Model {
   Map<String, dynamic> toJson() => {
         'id': id,
         'dateCreated': dateCreated,
-        'kidname': kidname,
-        'kidUUID': kidUUID,
-        'badTokenImageResourceName': badTokenImageResourceName,
-        'tokenImageResourceName': tokenImageResourceName,
-        'tokenNumberImageResourceName': tokenNumberImageResourceName,
-        'tokenNumber': tokenNumber,
+        'taskName': taskName,
+        'taskImageResourceName': taskImageResourceName,
+        'taskImageUrl': taskImageUrl,
+        'taskTokenzScore': taskTokenzScore,
+        'negativeReTask': negativeReTask,
         'kid': kid?.toJson()
       };
 
   static final QueryField ID = QueryField(fieldName: "kidTask.id");
   static final QueryField DATECREATED = QueryField(fieldName: "dateCreated");
-  static final QueryField KIDNAME = QueryField(fieldName: "kidname");
-  static final QueryField KIDUUID = QueryField(fieldName: "kidUUID");
-  static final QueryField BADTOKENIMAGERESOURCENAME =
-      QueryField(fieldName: "badTokenImageResourceName");
-  static final QueryField TOKENIMAGERESOURCENAME =
-      QueryField(fieldName: "tokenImageResourceName");
-  static final QueryField TOKENNUMBERIMAGERESOURCENAME =
-      QueryField(fieldName: "tokenNumberImageResourceName");
-  static final QueryField TOKENNUMBER = QueryField(fieldName: "tokenNumber");
+  static final QueryField TASKNAME = QueryField(fieldName: "taskName");
+  static final QueryField TASKIMAGERESOURCENAME =
+      QueryField(fieldName: "taskImageResourceName");
+  static final QueryField TASKIMAGEURL = QueryField(fieldName: "taskImageUrl");
+  static final QueryField TASKTOKENZSCORE =
+      QueryField(fieldName: "taskTokenzScore");
+  static final QueryField NEGATIVERETASK =
+      QueryField(fieldName: "negativeReTask");
   static final QueryField KID = QueryField(
       fieldName: "kid",
       fieldType: ModelFieldType(ModelFieldTypeEnum.model,
@@ -197,34 +188,31 @@ class KidTask extends Model {
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: KidTask.KIDNAME,
+        key: KidTask.TASKNAME,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: KidTask.KIDUUID,
+        key: KidTask.TASKIMAGERESOURCENAME,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: KidTask.BADTOKENIMAGERESOURCENAME,
+        key: KidTask.TASKIMAGEURL,
         isRequired: false,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: KidTask.TOKENIMAGERESOURCENAME,
+        key: KidTask.TASKTOKENZSCORE,
         isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        isArray: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
+            ofModelName: describeEnum(ModelFieldTypeEnum.int))));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: KidTask.TOKENNUMBERIMAGERESOURCENAME,
+        key: KidTask.NEGATIVERETASK,
         isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
-
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-        key: KidTask.TOKENNUMBER,
-        isRequired: false,
-        ofType: ModelFieldType(ModelFieldTypeEnum.int)));
+        ofType: ModelFieldType(ModelFieldTypeEnum.bool)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
         key: KidTask.KID,

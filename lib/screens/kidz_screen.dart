@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kidztokenz_app/models/kid.dart';
 import 'package:kidztokenz_app/widgets/kid_item.dart';
+import 'package:kidztokenz_app/widgets/new_kid.dart';
 
 class KidzScreen extends StatelessWidget {
   final List<Kid> kidz = [];
@@ -28,6 +29,29 @@ class KidzScreen extends StatelessWidget {
           mainAxisSpacing: 20,
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _startAddNewKid(context),
+        child: Icon(Icons.add),
+      ),
     );
   }
 }
+
+_startAddNewKid(BuildContext context) {
+  showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      backgroundColor: Colors.white,
+      context: context,
+      builder: (bCtx) {
+        return GestureDetector(
+          onTap: () {},
+          child: NewKid(_addNewKid),
+          behavior: HitTestBehavior.opaque,
+        );
+      });
+}
+
+_addNewKid() {}

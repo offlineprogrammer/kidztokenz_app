@@ -12,7 +12,7 @@ type Kid @model @key(name: "byUser", fields: ["userID"]) {
   userID: ID!
   dateCreated: String
   kidname: String
-  kidUUID: String
+  monsterImageResourceName: String 
   badTokenImageResourceName: String
   tokenImageResourceName: String
   tokenNumberImageResourceName: String
@@ -25,12 +25,11 @@ type KidTask @model @key(name: "byKid", fields: ["kidID"]) {
   id: ID!
   kidID: ID!
   dateCreated: String
-  kidname: String
-  kidUUID: String
-  badTokenImageResourceName: String
-  tokenImageResourceName: String
-  tokenNumberImageResourceName: String
-  tokenNumber: Int
+  taskName: String
+  taskImageResourceName: String
+  taskImageUrl: String
+  taskTokenzScore: [Int]
+  negativeReTask: Boolean
   kid: Kid @connection(fields: ["kidID"])
 
 }
